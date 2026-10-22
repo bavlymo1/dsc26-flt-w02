@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../lib/data/repositories/alert_repository.dart';
-import '../lib/domain/models/stock_alert.dart';
-import '../lib/ui/alerts/widgets/alerts_screen.dart';
+import 'package:dsc26_flt_w02/data/repositories/alert_repository.dart';
+import 'package:dsc26_flt_w02/domain/models/stock_alert.dart';
+import 'package:dsc26_flt_w02/ui/alerts/widgets/alerts_screen.dart';
 
 void main() {
   final demoAlerts = [

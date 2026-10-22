@@ -3,8 +3,7 @@ import '../../../data/repositories/alert_repository.dart';
 import '../../../domain/models/stock_alert.dart';
 
 class AlertsViewModel extends ChangeNotifier {
-  AlertsViewModel({required AlertRepository repository})
-      : _repository = repository;
+  AlertsViewModel({required this._repository});
 
   final AlertRepository _repository;
 
