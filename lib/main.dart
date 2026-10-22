@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
+import 'data/repositories/alert_repository.dart';
+import 'domain/models/stock_alert.dart';
+import 'ui/alerts/widgets/alerts_screen.dart';
 
 void main() {
-  runApp(const MainApp());
-}
+  final sampleAlerts = [
+    const StockAlert(
+      id: 'insulin',
+      medicineNameEn: 'Insulin Glargine',
+      medicineNameAr: 'انسولين جلارجين',
+      severity: Severity.critical,
+      daysOfCover: 2,
+      branchCode: 'B01',
+    ),
+    const StockAlert(
+      id: 'levo',
+      medicineNameEn: 'Levothyroxine',
+      medicineNameAr: 'ليفوتيروكسين',
+      severity: Severity.high,
+      daysOfCover: 6,
+      branchCode: 'B01',
+    ),
+  ];
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  final repository = InMemoryAlertRepository(sampleAlerts);
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(body: Center(child: Text('Hello World!'))),
-    );
-  }
+  runApp(NourShelfApp(repository: repository));
 }
