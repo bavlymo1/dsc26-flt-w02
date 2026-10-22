@@ -126,7 +126,7 @@ class AlertsScreen extends StatelessWidget {
                                     onPressed: () =>
                                         viewModel.acknowledge(alert.id),
                                   )
-                                : const Icon(Icons.done_all, color: Colors.grey),
+                                : null,
                           );
                         },
                       ),

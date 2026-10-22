@@ -57,6 +57,9 @@ class StockAlert {
     }
 
     final ack = json['acknowledged'];
+    if (ack != null && ack is! bool) {
+      throw const FormatException('acknowledged must be a boolean');
+    }
     final acknowledged = ack is bool ? ack : false;
 
     return StockAlert(
@@ -104,12 +107,13 @@ class StockAlert {
           acknowledged == other.acknowledged;
 
   @override
-  int get hashCode =>
-      id.hashCode ^
-      medicineNameEn.hashCode ^
-      medicineNameAr.hashCode ^
-      severity.hashCode ^
-      daysOfCover.hashCode ^
-      branchCode.hashCode ^
-      acknowledged.hashCode;
+  int get hashCode => Object.hash(
+        id,
+        medicineNameEn,
+        medicineNameAr,
+        severity,
+        daysOfCover,
+        branchCode,
+        acknowledged,
+      );
 }

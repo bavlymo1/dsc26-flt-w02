@@ -3,7 +3,8 @@ import '../../../data/repositories/alert_repository.dart';
 import '../../../domain/models/stock_alert.dart';
 
 class AlertsViewModel extends ChangeNotifier {
-  AlertsViewModel({required this._repository});
+  AlertsViewModel({required AlertRepository repository})
+      : _repository = repository;
 
   final AlertRepository _repository;
 
@@ -15,6 +16,10 @@ class AlertsViewModel extends ChangeNotifier {
   bool get loading => _loading;
   Set<Severity> get activeFilters => Set.unmodifiable(_activeFilters);
   String get query => _query;
+
+  int get unacknowledgedCriticalCount => _alerts
+      .where((a) => !a.acknowledged && a.severity == Severity.critical)
+      .length;
 
   Future<void> load() async {
     _loading = true;
@@ -36,8 +41,9 @@ class AlertsViewModel extends ChangeNotifier {
   }
 
   void setQuery(String newQuery) {
-    final normalized = _normalizeText(newQuery);
-    if (_normalizeText(_query) == normalized) return;
+    final normalizedNew = _normalizeText(newQuery);
+    final normalizedOld = _normalizeText(_query);
+    if (normalizedNew == normalizedOld) return;
     _query = newQuery;
     notifyListeners();
   }
@@ -95,8 +101,6 @@ class AlertsViewModel extends ChangeNotifier {
 
     return List.unmodifiable(filtered);
   }
-
-  int get totalCount => visibleAlerts.length;
 
   static String _normalizeText(String input) {
     var text = input.trim().toLowerCase();
